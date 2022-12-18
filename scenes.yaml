@@ -1,0 +1,64 @@
+- id: '1667657544909'
+  name: Living Room 25%
+  entities:
+    light.livingroom_spots:
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      - onoff
+      entity_id:
+      - light.livingroom_spot_1
+      - light.livingroom_spot_2
+      - light.livingroom_spot_3
+      - light.livingroom_spot_4
+      - light.livingroom_spot_5
+      - light.livingroom_spot_6
+      - light.dresser
+      icon: mdi:lightbulb-group
+      friendly_name: Livingroom Spots
+      supported_features: 44
+      color_mode: brightness
+      brightness: 64
+      state: 'on'
+  icon: mdi:brightness-percent
+  metadata:
+    light.livingroom_spots:
+      entity_only: true
+- id: '1667657584094'
+  name: Living Room 75%
+  entities:
+    light.livingroom_spots:
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      - onoff
+      entity_id:
+      - light.livingroom_spot_1
+      - light.livingroom_spot_2
+      - light.livingroom_spot_3
+      - light.livingroom_spot_4
+      - light.livingroom_spot_5
+      - light.livingroom_spot_6
+      - light.dresser
+      icon: mdi:lightbulb-group
+      friendly_name: Livingroom Spots
+      supported_features: 44
+      color_mode: brightness
+      brightness: 190
+      state: 'on'
+  icon: mdi:brightness-percent
+  metadata:
+    light.livingroom_spots:
+      entity_only: true

@@ -1,0 +1,38 @@
+
+### HomeAssistant ###
+# Files with personal details
+*.crt
+*.csr
+*.key
+.google.token
+.uuid
+google_calendars.yaml
+home-assistant.db
+home-assistant_v2.db
+home-assistant_v2.db-*
+ip_bans.yaml
+known_devices.yaml
+secrets.yaml
+
+# Temporary files
+*.db-journal
+*.pid
+tts
+
+# automatically downloaded dependencies
+deps
+lib
+www
+
+# Log files
+home-assistant.log
+*.log.*
+*.db
+
+# Development files
+custom_components/
+zigbee2mqtt/
+.cloud/
+.storage/
+.vscode/
+image/

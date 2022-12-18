@@ -1,0 +1,37 @@
+light:
+  - platform: group
+    name: Group Livingroom
+    entities:
+      - light.livingroom_spots
+      - light.dresser
+      - light.ceiling_light_1
+      - light.ceiling_light_2
+  - platform: group
+    name: Group Kitchen
+    entities:
+      - light.kitchen_light
+      - light.kitchen_spots
+  - platform: group
+    name: Group Garden
+    entities:
+      - light.patio_lights
+      - light.tafel_lampjes
+      - light.buiten_outlet_relay
+      - light.barn_lights
+      - light.garden_lights
+  - platform: group
+    name: Group Upstairs
+    entities:
+      - light.bedroom_light
+      - light.light_elyza
+      - light.wled_elyza
+      - light.schakelaar_santi
+      - light.wled_santi
+  - platform: group
+    name: Group Other Lights
+    entities:
+      - light.toilet_light
+      - light.landing_lights
+      - light.attic
+      - light.basement_light
+      - light.hallway_light

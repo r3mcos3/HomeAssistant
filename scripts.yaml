@@ -1,0 +1,81 @@
+warn_santi_for_game_time_ending:
+  alias: Warn Santi For Game Time Ending
+  sequence:
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      sequence:
+      - type: turn_off
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - type: turn_on
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - type: turn_off
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - type: turn_on
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+    - conditions:
+      - condition: device
+        type: is_off
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      sequence:
+      - type: turn_on
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - type: turn_off
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - type: turn_on
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+      - type: turn_off
+        device_id: 4600ef0f1e01697d5aad772dc4138a03
+        entity_id: light.schakelaar_santi
+        domain: light
+  mode: single

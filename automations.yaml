@@ -1,0 +1,735 @@
+- id: '1665245320500'
+  alias: Light - Wall Switch Santi
+  description: ''
+  trigger:
+  - platform: device
+    domain: tasmota
+    device_id: 4600ef0f1e01697d5aad772dc4138a03
+    type: button_short_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_SINGLE
+    id: short
+  - platform: device
+    domain: tasmota
+    device_id: 4600ef0f1e01697d5aad772dc4138a03
+    type: button_double_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_DOUBLE
+    id: double
+  - platform: device
+    domain: tasmota
+    device_id: 4600ef0f1e01697d5aad772dc4138a03
+    type: button_long_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_HOLD
+    id: long
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: short
+      sequence:
+      - service: switch.toggle
+        data: {}
+        target:
+          entity_id: switch.schakelaar_santi
+    - conditions:
+      - condition: trigger
+        id: double
+      sequence:
+      - service: cover.toggle
+        data: {}
+        target:
+          device_id: 2057994a65b9343f0b4ab63d3462d490
+    - conditions:
+      - condition: trigger
+        id: long
+      sequence:
+      - type: toggle
+        device_id: 388734153e4550df6cc22c23de274806
+        entity_id: light.wled_santi
+        domain: light
+  mode: single
+- id: '1665256359084'
+  alias: Remote - Landing
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e2001_e2002.yaml
+    input:
+      integration: Zigbee2MQTT
+      controller_entity: sensor.remote_landing_action
+      helper_last_controller_event: input_text.helper_e2002
+      action_button_left_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.attic
+      action_button_right_short:
+      - type: toggle
+        device_id: 02d2de3bb01e1acb9d3a594e038c5a56
+        entity_id: light.light_elyza
+        domain: light
+      action_button_down_long:
+      - type: toggle
+        device_id: 40433ff84b0c021d54815c872c40e577
+        entity_id: light.wled_elyza
+        domain: light
+      action_button_up_short:
+      - service: cover.open_cover
+        data: {}
+        target:
+          device_id: a7ff5ed61a6f9f84f9b7db2ddc8d5030
+      action_button_down_short:
+      - service: cover.close_cover
+        data: {}
+        target:
+          device_id: a7ff5ed61a6f9f84f9b7db2ddc8d5030
+- id: '1665257495620'
+  alias: Motion - Toilet
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: d4032628cebba5baa690782a1388b12d
+    entity_id: binary_sensor.motion_toilet_occupancy
+    domain: binary_sensor
+    id: 'on'
+  - type: no_motion
+    platform: device
+    device_id: d4032628cebba5baa690782a1388b12d
+    entity_id: binary_sensor.motion_toilet_occupancy
+    domain: binary_sensor
+    id: 'off'
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: 'on'
+      sequence:
+      - type: turn_on
+        device_id: d624099d53d21c22c0594a5270cacad5
+        entity_id: switch.toilet_light
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: 'off'
+      sequence:
+      - type: turn_off
+        device_id: d624099d53d21c22c0594a5270cacad5
+        entity_id: switch.toilet_light
+        domain: switch
+  mode: single
+- id: '1665257810084'
+  alias: Remote - Livingroom
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e1524_e1810.yaml
+    input:
+      integration: Zigbee2MQTT
+      controller_entity: sensor.remote_livingroom_action
+      helper_last_controller_event: input_text.helper_e1810
+      action_button_up_short:
+      - type: toggle
+        device_id: 7e656f7dca0db5f6d7673acac83dc50e
+        entity_id: light.kitchen_light
+        domain: light
+      action_button_center_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.livingroom_spots
+      action_button_center_long: []
+      action_button_center_double:
+      - type: toggle
+        device_id: 94bb621e0a7d5996cd06efec21ebfc1e
+        entity_id: switch.ceiling_light_1
+        domain: switch
+      - type: toggle
+        device_id: da39e0b481b00074662e265958ab8945
+        entity_id: switch.ceiling_light_2
+        domain: switch
+      button_center_double_press: true
+      action_button_left_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.garden_lights
+      action_button_right_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.patio_lights
+      action_button_down_short:
+      - service: input_select.select_next
+        data: {}
+        target:
+          entity_id: input_select.roller_blind_select
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_select.roller_blind_select
+            state: Front
+          sequence:
+          - service: tts.cloud_say
+            data:
+              message: Voor
+              language: nl-NL
+              entity_id: media_player.sonos_livingroom
+        - conditions:
+          - condition: state
+            entity_id: input_select.roller_blind_select
+            state: Back
+          sequence:
+          - service: tts.cloud_say
+            data:
+              message: Achter
+              entity_id: media_player.sonos_livingroom
+              language: nl-NL
+        - conditions:
+          - condition: state
+            entity_id: input_select.roller_blind_select
+            state: Both
+          sequence:
+          - service: tts.cloud_say
+            data:
+              entity_id: media_player.sonos_livingroom
+              message: Beide
+              language: nl-NL
+      action_button_down_long:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_select.roller_blind_select
+            state: Front
+          sequence:
+          - service: cover.toggle
+            data: {}
+            target:
+              entity_id: cover.rolluik_voor
+        - conditions:
+          - condition: state
+            entity_id: input_select.roller_blind_select
+            state: Back
+          sequence:
+          - service: cover.toggle
+            data: {}
+            target:
+              entity_id: cover.rolluik_achter
+        - conditions:
+          - condition: state
+            entity_id: input_select.roller_blind_select
+            state: Both
+          sequence:
+          - service: cover.toggle
+            data: {}
+            target:
+              entity_id:
+              - cover.rolluik_achter
+              - cover.rolluik_voor
+- id: '1665258565573'
+  alias: Motion - Basement
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_basement_occupancy
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - type: is_motion
+        condition: device
+        device_id: 689c17b1996b74fa72a5e77c014f010d
+        entity_id: binary_sensor.motion_basement_occupancy
+        domain: binary_sensor
+      sequence:
+      - type: turn_on
+        device_id: 9b72cea5b983e9aaf09695ead061d1b2
+        entity_id: light.basement_light
+        domain: light
+    - conditions:
+      - type: is_no_motion
+        condition: device
+        device_id: 689c17b1996b74fa72a5e77c014f010d
+        entity_id: binary_sensor.motion_basement_occupancy
+        domain: binary_sensor
+      sequence:
+      - type: turn_off
+        device_id: 9b72cea5b983e9aaf09695ead061d1b2
+        entity_id: light.basement_light
+        domain: light
+  mode: single
+- id: '1665259078224'
+  alias: Doorbell Pressed
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: d1b7fa98f09bb42977053e24e6aeecb5
+    entity_id: binary_sensor.g4_doorbell_doorbell
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.sonos_livingroom
+    data:
+      media_content_id: media-source://media_source/local/sounds_sounds_ring_button_Chime.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: sounds_sounds_ring_button_Chime.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.google_hub
+    data:
+      media_content_id: media-source://media_source/local/sounds_sounds_ring_button_Chime.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: sounds_sounds_ring_button_Chime.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  mode: single
+- id: '1665260229322'
+  alias: Alarm Clock
+  description: ''
+  trigger:
+  - platform: template
+    value_template: ' {{now().strftime("%a %h %d %H:%M %Z %Y") == (((state_attr(''sensor.flip_3_next_alarm_2'',
+      ''Time in Milliseconds'') | int / 1000)) | timestamp_custom(''%a %h %d %H:%M
+      %Z %Y''))}}'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - service: homeassistant.turn_on
+    data: {}
+    target:
+      entity_id: light.livingroom_spots
+      device_id:
+      - 517cf756520aea7d39d6edf5c84e094d
+      - 52890255f67c21aff8a0ef18196360ed
+  mode: single
+- id: '1665311454817'
+  alias: Motion - Landing
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_stairs_landing
+    to: 'on'
+    id: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.motion_stairs_landing
+    to: 'off'
+    id: 'off'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: 'on'
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: 5
+          transition: 1
+        target:
+          entity_id: light.landing_lights
+    - conditions:
+      - condition: trigger
+        id: 'off'
+      sequence:
+      - service: light.turn_off
+        data:
+          transition: 3
+        target:
+          entity_id: light.landing_lights
+  mode: single
+- id: '1665312502418'
+  alias: Motion - Barn
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: e9cc68afdba832172f34d06ba5b223e6
+    entity_id: binary_sensor.motion_barn_occupancy
+    domain: binary_sensor
+    id: 'on'
+  - type: no_motion
+    platform: device
+    device_id: e9cc68afdba832172f34d06ba5b223e6
+    entity_id: binary_sensor.motion_barn_occupancy
+    domain: binary_sensor
+    id: 'off'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: 'on'
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          entity_id: light.barn_lights
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: 'off'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.barn_lights
+  mode: single
+- id: '1665312824427'
+  alias: Remote - Barn
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e1812.yaml
+    input:
+      integration: Zigbee2MQTT
+      controller_entity: sensor.remote_barn_action
+      helper_last_controller_event: input_text.helper_e1812
+      action_button_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.barn_lights
+- id: '1665313808031'
+  alias: Zone - Nobody Home, Lights Out
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: zone.home
+    below: 1
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      entity_id: all
+  mode: single
+- id: '1665335720244'
+  alias: Volume Controller
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:30:00
+    id: up
+  - platform: time
+    at: '20:00:00'
+    id: down
+  - platform: event
+    event_type: automation_reloaded
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: up
+      sequence:
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.5
+        target:
+          device_id:
+          - 0443fbd9355e5218df60b806e2d9a70c
+          - 8f738813a126c799068135274172bbff
+          - 3caa3ddf4fde7af8783614c4c4442336
+          - a0629c49a49639ef320b06ddf1a7bbd7
+          - 1a005fb5c2496f456f5c49ef77562a18
+    - conditions:
+      - condition: trigger
+        id: down
+      sequence:
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.2
+        target:
+          device_id:
+          - 0443fbd9355e5218df60b806e2d9a70c
+          - 8f738813a126c799068135274172bbff
+          - 3caa3ddf4fde7af8783614c4c4442336
+          - a0629c49a49639ef320b06ddf1a7bbd7
+          - 1a005fb5c2496f456f5c49ef77562a18
+  mode: single
+- id: '1665336023955'
+  alias: Light - Homecoming
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: zone.home
+    above: 0
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.livingroom_spots
+      device_id:
+      - 52890255f67c21aff8a0ef18196360ed
+  mode: single
+- id: '1665336136683'
+  alias: Light - Ambiance Light Garden
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sun.sun
+    to: below_horizon
+    id: 'on'
+  - platform: time
+    at: '23:59:00'
+    id: 'off'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: 'on'
+      sequence:
+      - service: homeassistant.turn_on
+        data: {}
+        target:
+          device_id: 848fd82a4d4b73c91729d7129e8d4568
+          entity_id: light.buiten_outlet_relay
+    - conditions:
+      - condition: trigger
+        id: 'off'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id:
+          - light.tafel_lampjes
+          - light.buiten_outlet_relay
+  mode: single
+- id: '1665341028000'
+  alias: Light - Light Strenght Livingroom
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.livingroom_spots
+    to: 'on'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      sequence:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.living_room_25
+        metadata: {}
+    - conditions:
+      - condition: state
+        entity_id: sun.sun
+        state: above_horizon
+      sequence:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.living_room_75
+        metadata: {}
+  mode: single
+- id: '1665342930533'
+  alias: Light - Recycle Bin
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: abe06d2d284270183c80af25c0127e0a
+    entity_id: binary_sensor.backdoor_contact
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+    target:
+      entity_id: light.patio_lights
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 30
+      milliseconds: 0
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.patio_lights
+  mode: single
+- id: '1665425160192'
+  alias: Light - Hallway By Homecoming
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - person.annemarie
+    to: home
+  - platform: state
+    entity_id:
+    - person.remco
+    to: home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      device_id: 45a40ba7642f03b3cb0164216eb74b41
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    data: {}
+    target:
+      device_id: 45a40ba7642f03b3cb0164216eb74b41
+  mode: single
+- id: '1665677006710'
+  alias: Warn Santi For Bedtime
+  description: ''
+  trigger:
+  - platform: time
+    at: '19:45:00'
+    id: warn
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: warn
+      sequence:
+      - service: script.turn_on
+        data: {}
+        target:
+          entity_id: script.warn_santi_for_game_time_ending
+  mode: single
+- id: '1665778448326'
+  alias: Update notifications
+  description: ''
+  use_blueprint:
+    path: mdegat01/update_notifications.yaml
+    input:
+      reminder_hours: '3'
+      update_entities:
+      - update.dream_machine_pro
+      - update.esphome_update
+      - update.hacs_update
+      - update.home_assistant_core_update
+      - update.home_assistant_google_drive_backup_update
+      - update.home_assistant_operating_system_update
+      - update.home_assistant_supervisor_update
+      - update.mosquitto_broker_update
+      - update.mushroom_update
+      - update.samba_share_update
+      - update.ssh_web_terminal_update
+      - update.studio_code_server_update
+      - update.u7lt
+      - update.u7msh
+      - update.us8p60
+      - update.usmini
+      - update.wled_elyza_firmware
+      - update.wled_santi_firmware
+      - update.zigbee2mqtt_update
+      mobile_app_device: 77328eced15f9f1362a049d6ba2f93c5
+      send_to_ha: false
+- id: '1667657725442'
+  alias: Light - Livingroom 20:00 25% Brightness
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: state
+    entity_id: light.livingroom_spots
+    state: 'on'
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.living_room_25
+    metadata: {}
+  mode: single
+- id: '1671198312774'
+  alias: System - Record When Away
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: home
+    id: home
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: not_home
+    id: not_home
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: home
+      sequence:
+      - device_id: b985ec4b019436df7eef934bcf7ea33f
+        domain: select
+        entity_id: select.g3_instant_recording_mode
+        type: select_option
+        option: Never
+      - device_id: d1b7fa98f09bb42977053e24e6aeecb5
+        domain: select
+        entity_id: select.g4_doorbell_recording_mode
+        type: select_option
+        option: Never
+    - conditions:
+      - condition: trigger
+        id: not_home
+      sequence:
+      - device_id: b985ec4b019436df7eef934bcf7ea33f
+        domain: select
+        entity_id: select.g3_instant_recording_mode
+        type: select_option
+        option: Always
+      - device_id: d1b7fa98f09bb42977053e24e6aeecb5
+        domain: select
+        entity_id: select.g4_doorbell_recording_mode
+        type: select_option
+        option: Always
+  mode: single
