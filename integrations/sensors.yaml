@@ -1,14 +1,15 @@
+---
 sensor:
   - platform: template
     sensors:
       water_in_liters:
         unit_of_measurement: "L"
         value_template: "{{ ( states('sensor.water_meter_total_consumption') | float * 1000 ) }}"
-        unique_id: water_total  
+        unique_id: water_total
       energy_combined:
         unit_of_measurement: "kWh"
         value_template: "{{ states('sensor.energy_consumed_tariff_1') | float + states('sensor.energy_consumed_tariff_2') | float }}"
-        unique_id: energy_combined  
+        unique_id: energy_combined
   - platform: scrape
     name: Euro 95 Poppel
     resource: https://vanraak.be/nl/professionals/tanken/poppel

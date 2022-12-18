@@ -1,3 +1,4 @@
+---
 alias: "System - Recorder Purge"
 description: >-
   Purge my recorder database every hour, to keep things nice and tight.
