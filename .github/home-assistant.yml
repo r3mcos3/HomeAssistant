@@ -44,4 +44,4 @@ jobs:
         with:
           path: "."
           secrets: ./secrets.fake.yaml
-          version: "${{ matrix.version }}"✏️✏️
+          version: "${{ matrix.version }}"
