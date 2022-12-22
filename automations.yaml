@@ -688,7 +688,7 @@
     metadata: {}
   mode: single
 - id: '1671198312774'
-  alias: System - Record When Away
+  alias: System - Record Motion When Away
   description: ''
   trigger:
   - platform: state
@@ -708,28 +708,24 @@
       - condition: trigger
         id: home
       sequence:
-      - device_id: b985ec4b019436df7eef934bcf7ea33f
-        domain: select
-        entity_id: select.g3_instant_recording_mode
-        type: select_option
-        option: Never
-      - device_id: d1b7fa98f09bb42977053e24e6aeecb5
-        domain: select
-        entity_id: select.g4_doorbell_recording_mode
-        type: select_option
-        option: Never
+      - type: turn_off
+        device_id: b985ec4b019436df7eef934bcf7ea33f
+        entity_id: switch.g3_instant_detections_motion
+        domain: switch
+      - type: turn_off
+        device_id: d1b7fa98f09bb42977053e24e6aeecb5
+        entity_id: switch.g4_doorbell_detections_motion
+        domain: switch
     - conditions:
       - condition: trigger
         id: not_home
       sequence:
-      - device_id: b985ec4b019436df7eef934bcf7ea33f
-        domain: select
-        entity_id: select.g3_instant_recording_mode
-        type: select_option
-        option: Always
-      - device_id: d1b7fa98f09bb42977053e24e6aeecb5
-        domain: select
-        entity_id: select.g4_doorbell_recording_mode
-        type: select_option
-        option: Always
+      - type: turn_on
+        device_id: b985ec4b019436df7eef934bcf7ea33f
+        entity_id: switch.g3_instant_detections_motion
+        domain: switch
+      - type: turn_on
+        device_id: d1b7fa98f09bb42977053e24e6aeecb5
+        entity_id: switch.g4_doorbell_detections_motion
+        domain: switch
   mode: single
