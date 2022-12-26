@@ -10,20 +10,3 @@ sensor:
         unit_of_measurement: "kWh"
         value_template: "{{ states('sensor.energy_consumed_tariff_1') | float + states('sensor.energy_consumed_tariff_2') | float }}"
         unique_id: energy_combined
-  - platform: scrape
-    name: Euro 95 Poppel
-    resource: https://vanraak.be/nl/professionals/tanken/poppel
-    select: ".table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > span:nth-child(3)"
-    unit_of_measurement: €/L
-    verify_ssl: "false"
-    scan_interval: "43200"
-    unique_id: euro_poppel
-
-  - platform: scrape
-    name: Euro 95 Landelijk
-    resource: https://www.unitedconsumers.com/tanken/informatie/brandstof-prijzen.asp
-    select: "div.table-row:nth-child(2) > div:nth-child(3)"
-    unit_of_measurement: €/L
-    verify_ssl: "false"
-    scan_interval: "43200"
-    unique_id: euro_landelijk
