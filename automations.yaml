@@ -729,3 +729,18 @@
         entity_id: switch.g4_doorbell_detections_motion
         domain: switch
   mode: single
+- id: '1671962959745'
+  alias: Update Gas Prices
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: /4
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      topic: dgp/gas_stations
+      payload_template: '{"fuel_type":"euro95","radius":5,"latitude":{{ state_attr("person.remco",
+        "latitude") }},"longitude":{{ state_attr("person.remco", "longitude") }},
+        "to_publish":3}'
+  mode: single
