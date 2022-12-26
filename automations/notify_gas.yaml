@@ -7,11 +7,11 @@ action:
   - service: notify.mobile_app_flip_3
     data:
       title: Cheapest gas station
-      message: >- 
-        'Gas costs € {{ states.sensor.gas_station_euro95_lowest_price_1.state }} at 
+      message: >-
+        'Gas costs € {{ states.sensor.gas_station_euro95_lowest_price_1.state }} at
         {{ state_attr("sensor.gas_station_euro95_lowest_price_1","station_street") }}.'
       data:
-        url: >- 
+        url: >-
           'https://www.google.com/maps/search/?api=1&query={{ state_attr("sensor.gas_station_euro95_lowest_price_1","latitude") }},
           {{ state_attr("sensor.gas_station_euro95_lowest_price_1", "longitude") }}'
 
