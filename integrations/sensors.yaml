@@ -14,4 +14,4 @@ sensor:
     name: Tilburg 
     regios: 20,21
     radius: 10000
-    nolocation: false
+    nolocation: true
