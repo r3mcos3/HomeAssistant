@@ -744,3 +744,27 @@
         "latitude") }},"longitude":{{ state_attr("person.remco", "longitude") }},
         "to_publish":3}'
   mode: single
+- id: '1672035894307'
+  alias: House - Air Refresher
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.air_refresher
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: schedule.air_refresher
+      state: 'on'
+    then:
+    - type: turn_on
+      device_id: 31940e40ec3c50c469cc2aa66ad8709f
+      entity_id: switch.woonkamer_genie
+      domain: switch
+    else:
+    - type: turn_off
+      device_id: 31940e40ec3c50c469cc2aa66ad8709f
+      entity_id: switch.woonkamer_genie
+      domain: switch
+  mode: single
