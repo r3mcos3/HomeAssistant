@@ -4,7 +4,7 @@ trigger:
   - platform: state
     entity_id: sensor.gas_station_euro95_lowest_price_1
 action:
-  - service: notify.mobile_app_flip_3
+  - service: notify.mobile_app_sm_711b
     data:
       title: Cheapest gas station
       message: >-
