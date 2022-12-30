@@ -4,7 +4,7 @@ trigger:
   - platform: state
     entity_id: sensor.gas_station_euro95_lowest_price_1
 action:
-  - service: notify.mobile_app_iphone_van_remco
+  - service: notify.mobile_app_sm_f711b
     data:
       title: Cheapest gas station
       message: 'Gas costs € {{ states.sensor.gas_station_euro95_lowest_price_1.state }} at {{ state_attr("sensor.gas_station_euro95_lowest_price_1","station_street") }}. '

@@ -3,5 +3,5 @@ group:
   anne_remco:
     name: anne_remco
     entities:
-      - device_tracker.iphone_van_remco
+      - device_tracker.sm_f711b
       - device_tracker.iphone_van_marietje
