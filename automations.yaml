@@ -669,7 +669,7 @@
       - update.wled_elyza_firmware
       - update.wled_santi_firmware
       - update.zigbee2mqtt_update
-      mobile_app_device: 3fb795d781b6cae9c59aebbdeebff81f
+      mobile_app_device: b2f2965eb0fa6687131d061421ac2b09
       send_to_ha: false
 - id: '1667657725442'
   alias: Light - Livingroom 20:00 25% Brightness
