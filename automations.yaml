@@ -709,10 +709,6 @@
         id: home
       sequence:
       - type: turn_off
-        device_id: b985ec4b019436df7eef934bcf7ea33f
-        entity_id: switch.g3_instant_detections_motion
-        domain: switch
-      - type: turn_off
         device_id: d1b7fa98f09bb42977053e24e6aeecb5
         entity_id: switch.g4_doorbell_detections_person
         domain: switch
@@ -720,10 +716,6 @@
       - condition: trigger
         id: not_home
       sequence:
-      - type: turn_on
-        device_id: b985ec4b019436df7eef934bcf7ea33f
-        entity_id: switch.g3_instant_detections_motion
-        domain: switch
       - type: turn_on
         device_id: d1b7fa98f09bb42977053e24e6aeecb5
         entity_id: switch.g4_doorbell_detections_person
