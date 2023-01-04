@@ -11,7 +11,8 @@ sensor:
         value_template: "{{ states('sensor.energy_consumed_tariff_1') | float + states('sensor.energy_consumed_tariff_2') | float }}"
         unique_id: energy_combined
   - platform: p2000
-    name: Tilburg
+    name: P2000
     regios: 20,21
     radius: 10000
     nolocation: true
+  - platform: formulaone_api
