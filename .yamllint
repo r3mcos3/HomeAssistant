@@ -10,6 +10,7 @@ ignore: |
   esphome/
   scenes.yaml
   scripts.yaml
+  themes/*/*.yaml
   themes/*.yaml
 rules:
   braces:
