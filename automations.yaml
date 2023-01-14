@@ -710,7 +710,7 @@
       sequence:
       - type: turn_off
         device_id: d1b7fa98f09bb42977053e24e6aeecb5
-        entity_id: switch.g4_doorbell_detections_person
+        entity_id: switch.g4_doorbell_detections_motion
         domain: switch
     - conditions:
       - condition: trigger
@@ -718,7 +718,7 @@
       sequence:
       - type: turn_on
         device_id: d1b7fa98f09bb42977053e24e6aeecb5
-        entity_id: switch.g4_doorbell_detections_person
+        entity_id: switch.g4_doorbell_detections_motion
         domain: switch
   mode: single
 - id: '1671962959745'
