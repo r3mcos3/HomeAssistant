@@ -30,7 +30,6 @@ home-assistant.log
 *.db
 
 # Development files
-custom_components/
 zigbee2mqtt/
 .cloud/
 .storage/
