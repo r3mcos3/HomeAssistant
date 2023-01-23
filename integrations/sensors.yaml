@@ -15,4 +15,3 @@ sensor:
     regios: 20,21
     radius: 10000
     nolocation: true
-  - platform: formulaone_api
