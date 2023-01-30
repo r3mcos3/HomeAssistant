@@ -1,0 +1,16 @@
+---
+
+template:
+  - sensor:
+    # Template sensor to display what this month total costs are.
+    - name: Prijsplafond this month costs
+      unit_of_measurement: "EUR"
+      state: "{{ (state_attr('sensor.prijsplafond_power', 'this_month_costs') | float) }}"
+      icon: mdi:currency-eur
+
+    # With thanks to @pluim003 a sensor to show the remaining energy to be used for this month.
+    - name: 'Prijsplafond remaining energy'
+      unit_of_measurement: "kWh"
+      state: "{{ (state_attr('sensor.prijsplafond_power', 'this_month_cap') | float | round(2)) -
+                 (states('sensor.prijsplafond_power') | float | round(2)) }}"
+      icon: mdi:flash
