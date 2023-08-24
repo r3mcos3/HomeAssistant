@@ -1,0 +1,566 @@
+- id: '1692450372202'
+  alias: Notificatie - Updates
+  description: ''
+  use_blueprint:
+    path: mdegat01/update_notifications.yaml
+    input:
+      update_entities:
+      - update.13_dreammachine_pro
+      - update.advanced_ssh_web_terminal_update
+      - update.buiten_outlet_firmware
+      - update.esphome_update
+      - update.hacs_update
+      - update.home_assistant_core_update
+      - update.home_assistant_operating_system_update
+      - update.home_assistant_supervisor_update
+      - update.mosquitto_broker_update
+      - update.rolluik_achter_firmware
+      - update.rolluik_boven_firmware
+      - update.rolluik_voor_firmware
+      - update.wled_elyza_firmware
+      - update.schuur_outlet_firmware
+      - update.slimmelezer_firmware
+      - update.spook_not_your_homie_update
+      - update.uap_ac_lite
+      - update.uap_ac_m
+      - update.us_8_60w
+      - update.usw_flex_mini
+      - update.usw_flex_mini_zolder
+      - update.watermeter_firmware
+      - update.wled_santi_firmware
+      mobile_app_device: b51feff7c01c57cde21743b90b13df53
+      reminder_hours: '12'
+      only_after: 08:30:00
+      only_before: '22:00:00'
+- id: '1692450584333'
+  alias: Remote - Boven
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e2001_e2002.yaml
+    input:
+      integration: Zigbee2MQTT
+      controller_entity: sensor.remote_overloop_action
+      helper_last_controller_event: input_text.helper_remote_overloop
+      action_button_left_short:
+      - type: toggle
+        device_id: ff37c96c2719cd60b2489bc1f0678534
+        entity_id: ca3a422997c5ab6781c0b2134050534a
+        domain: light
+      action_button_right_short:
+      - type: toggle
+        device_id: 835d507e5522c43ad00ecf7b7e732be1
+        entity_id: 61a118902b61179462418ffa35d01e19
+        domain: light
+      action_button_up_short:
+      - device_id: d414261466f77de581365cc8af79a949
+        domain: cover
+        entity_id: 939ea582792af4e8780409a3845d2483
+        type: open
+      action_button_up_long:
+      - device_id: 5651a6e5242ca5cc67ad6127fe9c711d
+        domain: cover
+        entity_id: c3cff401449c4570dd973ad2ac227130
+        type: open
+      action_button_down_short:
+      - device_id: d414261466f77de581365cc8af79a949
+        domain: cover
+        entity_id: 939ea582792af4e8780409a3845d2483
+        type: close
+      action_button_down_long:
+      - device_id: 5651a6e5242ca5cc67ad6127fe9c711d
+        domain: cover
+        entity_id: c3cff401449c4570dd973ad2ac227130
+        type: close
+- id: '1692450837266'
+  alias: Remote - Schuur
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e1812.yaml
+    input:
+      integration: Zigbee2MQTT
+      controller_entity: sensor.remote_schuur_action
+      helper_last_controller_event: input_text.helper_remote_schuur
+      action_button_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.schuur
+      action_button_long:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.serre
+- id: '1692454829557'
+  alias: Beweging - Overloop
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.overloop_beweging
+    to: 'on'
+    id: aan
+  - platform: state
+    entity_id:
+    - binary_sensor.overloop_beweging
+    to: 'off'
+    id: uit
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - type: turn_on
+        device_id: 7692791b08fb772e69c31244cbe98849
+        entity_id: b6675ef2d99b0273037687fa4fdf02a4
+        domain: light
+        brightness_pct: 10
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - type: turn_off
+        device_id: 7692791b08fb772e69c31244cbe98849
+        entity_id: b6675ef2d99b0273037687fa4fdf02a4
+        domain: light
+  mode: single
+- id: '1692454961039'
+  alias: Beweging - WC
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 693dd9ff75b7d48de38544fd813a9486
+    entity_id: bff3f1c98d6e89968db2605a0b6d718d
+    domain: binary_sensor
+    id: aan
+  - type: no_motion
+    platform: device
+    device_id: 693dd9ff75b7d48de38544fd813a9486
+    entity_id: bff3f1c98d6e89968db2605a0b6d718d
+    domain: binary_sensor
+    id: uit
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - type: turn_on
+        device_id: 21eefe17f0dd6c8d99f4d2b19d357e6b
+        entity_id: 4d6afeee0c56a59dbe1924fbcff6b26b
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 3
+          seconds: 0
+          milliseconds: 0
+      - type: turn_off
+        device_id: 21eefe17f0dd6c8d99f4d2b19d357e6b
+        entity_id: 4d6afeee0c56a59dbe1924fbcff6b26b
+        domain: switch
+  mode: restart
+- id: '1692455151834'
+  alias: Beweging - Kelder
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: a4b2a76d4807daba520a83312286ba5a
+    entity_id: dd3fb45f8b53fda8e0129afcba094264
+    domain: binary_sensor
+    id: aan
+  - type: no_motion
+    platform: device
+    device_id: a4b2a76d4807daba520a83312286ba5a
+    entity_id: dd3fb45f8b53fda8e0129afcba094264
+    domain: binary_sensor
+    id: uit
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - type: turn_on
+        device_id: bd31fb899ecbe3abfbc3029b9919a02e
+        entity_id: 934b0cf2fca82b0c558a5c13845e6d0e
+        domain: light
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - type: turn_off
+        device_id: bd31fb899ecbe3abfbc3029b9919a02e
+        entity_id: 934b0cf2fca82b0c558a5c13845e6d0e
+        domain: light
+  mode: single
+- id: '1692474197500'
+  alias: Beweging - Schuur
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: db090454202dac3a9ddc70416829c3b8
+    entity_id: 3ec68becd6b6dd9352c0368d2f7387ec
+    domain: binary_sensor
+    id: aan
+  - type: no_motion
+    platform: device
+    device_id: db090454202dac3a9ddc70416829c3b8
+    entity_id: 3ec68becd6b6dd9352c0368d2f7387ec
+    domain: binary_sensor
+    id: uit
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          entity_id: light.schuur
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.schuur
+  mode: single
+- id: '1692474280142'
+  alias: Beweging - Gang
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 0ddc2ad1a8e579bb9d05d2137b8b0fa0
+    entity_id: 52374c961be07e48a530c3e61db9ec8e
+    domain: binary_sensor
+    id: aan
+  - type: no_motion
+    platform: device
+    device_id: 0ddc2ad1a8e579bb9d05d2137b8b0fa0
+    entity_id: 52374c961be07e48a530c3e61db9ec8e
+    domain: binary_sensor
+    id: uit
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          device_id: c5ee47311aef061ea82b0f04f110e1e3
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          device_id: c5ee47311aef061ea82b0f04f110e1e3
+  mode: single
+- id: '1692518361768'
+  alias: Remote - Woonkamer
+  description: ''
+  use_blueprint:
+    path: EPMatt/ikea_e1524_e1810.yaml
+    input:
+      integration: Zigbee2MQTT
+      controller_entity: sensor.remote_woonkamer_action
+      helper_last_controller_event: input_text.helper_remote_woonkamer
+      action_button_left_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.tuin
+      action_button_left_long:
+      - type: toggle
+        device_id: 28d30ac0e8eae333a4aba9e950c9f9b5
+        entity_id: ff6dc167783cd28c5910c52d6e81ab09
+        domain: light
+      action_button_right_short:
+      - service: light.toggle
+        data:
+          brightness_pct: 25
+        target:
+          entity_id: light.serre
+      action_button_up_short:
+      - type: toggle
+        device_id: 8bebbdc7297b74e45c0856c6ee0ffa4f
+        entity_id: 901876c7789452a4c09e8ae5f4510b24
+        domain: switch
+      action_button_up_double: []
+      action_button_center_short:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.woonkamer_spotjes
+      - type: toggle
+        device_id: 9ace5e5d7afa068a394ad9c888c0ff7d
+        entity_id: 9e77f27b3b6caf660c6aabf6362b3ea5
+        domain: light
+      button_down_double_press: true
+      button_up_double_press: true
+      action_button_up_long:
+      - type: toggle
+        device_id: db5b8c9d9c4129efbd358eb8ed6a3d2d
+        entity_id: e6c0695c6377939292aba7c741339cc9
+        domain: light
+      action_button_center_long: []
+      action_button_center_double: []
+      button_center_double_press: true
+      helper_double_press_delay: 1000
+      action_button_down_short:
+      - if:
+        - condition: state
+          entity_id: cover.rolluiken_beneden
+          state: open
+        then:
+        - service: cover.close_cover
+          data: {}
+          target:
+            entity_id: cover.rolluiken_beneden
+        else:
+        - service: cover.open_cover
+          data: {}
+          target:
+            entity_id: cover.rolluiken_beneden
+      action_button_right_long:
+      - service: script.serre_10_stap
+        data: {}
+- id: '1692521059954'
+  alias: Licht - Thuis / Weg
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: not_home
+    id: weg
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: home
+    id: thuis
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - weg
+      - condition: state
+        entity_id: input_boolean.gast_status
+        state: 'off'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: all
+    - conditions:
+      - condition: trigger
+        id:
+        - thuis
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          entity_id:
+          - light.woonkamer_spotjes
+          - light.keuken_spotjes
+  mode: single
+- id: '1692523043489'
+  alias: Volume Control 2.0
+  description: ''
+  use_blueprint:
+    path: r3mcos3/volume_control.yaml
+    input:
+      media:
+        device_id:
+        - 847e19281e63525167385901f865fcf0
+        - 89df5c7f0c6a714007958b86afa50b2b
+        - 323e3996cb8e1c4560f17c67930f01b7
+        - c5ef44f56da081ffd3c09eca79bb39e8
+        - 0e92dc9ec55f9787249fd3370082602e
+      time_up: 08:30:00
+      time_down: '20:30:00'
+- id: '1692597345731'
+  alias: Alarm Klok
+  description: ''
+  trigger:
+  - platform: template
+    value_template: "{{now().strftime(\"%a %h %d %H:%M %Z %Y\") ==\n      (((state_attr('sensor.sm_f711b_next_alarm',
+      'Time in Milliseconds')\n      | int / 1000)) | timestamp_custom('%a %h %d %H:%M
+      %Z %Y'))}}"
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 8bebbdc7297b74e45c0856c6ee0ffa4f
+    entity_id: 901876c7789452a4c09e8ae5f4510b24
+    domain: switch
+  - service: light.turn_on
+    data:
+      brightness_pct: 25
+    target:
+      entity_id: light.woonkamer_spotjes
+  mode: single
+- id: '1692598426557'
+  alias: Licht - Sfeer Licht
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sun.sun
+    to: below_horizon
+    id: aan
+  - platform: time
+    at: '23:59:00'
+    id: uit
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - type: turn_on
+        device_id: 400e6169af455632145f9eb4de081341
+        entity_id: 3ae2b1eca0760490827b00484113306d
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - type: turn_off
+        device_id: 400e6169af455632145f9eb4de081341
+        entity_id: 3ae2b1eca0760490827b00484113306d
+        domain: switch
+  mode: single
+- id: '1692601009583'
+  alias: Deurbel Gong
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 72dcac9b2b65af90d49fb8ffcaf892af
+    entity_id: 3771c39679c2f1f21b48213f783b810a
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.sonos_woonkamer
+    data:
+      media_content_id: media-source://media_source/local/Chime.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: Chime.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.google_hub
+    data:
+      media_content_id: media-source://media_source/local/Chime.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: Chime.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  mode: single
+- id: '1692646067955'
+  alias: Notificatie - Zon
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sun.sun
+    to: above_horizon
+    id: op
+  - platform: state
+    entity_id:
+    - sun.sun
+    to: below_horizon
+    id: onder
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - op
+      sequence:
+      - service: notify.mobile_app_sm_f711b
+        data:
+          message: De zon kwam op om {{ now().strftime('%H:%M') }} ☀
+    - conditions:
+      - condition: trigger
+        id:
+        - onder
+      sequence:
+      - service: notify.mobile_app_sm_f711b
+        data:
+          message: "De zon ging onder om {{ now().strftime('%H:%M') }} \U0001F319"
+  mode: single
+- id: '1692807327409'
+  alias: Sync Rolluiken
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.sync_rolluiken
+    to:
+  condition: []
+  action:
+  - service: cover.set_cover_position
+    target:
+      entity_id: cover.rolluik_achter
+    data:
+      position: '{{state_attr(''cover.rolluik_voor'', ''current_position'')}}'
+  mode: single

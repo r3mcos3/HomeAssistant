@@ -1,0 +1,9 @@
+serre_10_stap:
+  alias: Serre 25% Stap
+  sequence:
+  - service: light.turn_on
+    data:
+      brightness_step_pct: 25
+    target:
+      entity_id: light.serre
+  mode: single
