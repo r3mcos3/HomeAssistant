@@ -564,3 +564,60 @@
     data:
       position: '{{state_attr(''cover.rolluik_voor'', ''current_position'')}}'
   mode: single
+- id: '1692867070978'
+  alias: 'Zigbee - Apparaten Koppelen '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.zigbee_koppelen
+    to: 'on'
+    id: aan
+  - platform: state
+    entity_id:
+    - input_boolean.zigbee_koppelen
+    to: 'off'
+    id: uit
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - service: mqtt.publish
+        data:
+          topic: zigbee2mqtt/bridge/request/permit_join
+          payload: 'true'
+      - service: persistent_notification.create
+        data:
+          message: 'Zigbee Koppelen: AAN'
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - service: mqtt.publish
+        data:
+          topic: zigbee2mqtt/bridge/request/permit_join
+          payload: 'false'
+      - service: persistent_notification.create
+        data:
+          message: 'Zigbee Koppelen: UIT'
+  mode: single
+- id: '1692942496398'
+  alias: Mqtt - Post Dagelijks Water Verbruik In Mqtt
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:59:00'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      qos: 0
+      retain: false
+      topic: r3mcos3/ha/water_used_daily
+      payload: '{{states(''sensor.water_gebruik_dagelijks'')}}'
+  mode: single
