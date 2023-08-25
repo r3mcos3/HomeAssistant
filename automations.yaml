@@ -621,3 +621,18 @@
       topic: r3mcos3/ha/water_used_daily
       payload: '{{states(''sensor.water_gebruik_dagelijks'')}}'
   mode: single
+- id: '1692957012426'
+  alias: 'Reload Brandstof Prijzen '
+  description: ''
+  trigger:
+  - platform: time
+    at: '10:00:00'
+  condition: []
+  action:
+  - service: homeassistant.reload_config_entry
+    data: {}
+    target:
+      entity_id:
+      - sensor.carbu_com_super95_2382_price
+      - sensor.carbu_com_super95_5043lp_price
+  mode: single
