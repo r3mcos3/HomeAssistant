@@ -1,0 +1,6 @@
+group:
+  anne_remco:
+    name: Anne Remco
+    entities:
+      - device_tracker.iphone_van_marietje_2
+      - device_tracker.sm_f711b

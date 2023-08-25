@@ -1,0 +1,11 @@
+proximity:
+  home_anne:
+    devices:
+      - device_tracker.iphone_van_marietje_2
+    tolerance: 50
+    unit_of_measurement: km
+  home_remco:
+    devices:
+      - device_tracker.sm_f711b
+    tolerance: 50
+    unit_of_measurement: km

@@ -1,0 +1,6 @@
+command_line:
+  - sensor:
+      name: "Lines of Code"
+      unique_id: lines_of_code
+      command: "find /config -name '*.yaml' | xargs cat | wc -l"
+      scan_interval: 20000
