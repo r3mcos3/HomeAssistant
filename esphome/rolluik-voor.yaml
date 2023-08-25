@@ -65,7 +65,7 @@ cover:
   open_duration: 37s
   close_action:
     - switch.turn_on: close_cover
-  close_duration: 33s
+  close_duration: 35s
   stop_action:
     - switch.turn_off: open_cover
     - switch.turn_off: close_cover
