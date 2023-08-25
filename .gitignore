@@ -32,6 +32,8 @@ tts
 deps
 lib
 zigbee2mqtt
+addons_autoscripts
+addons_config
 
 # Log files
 home-assistant.log
