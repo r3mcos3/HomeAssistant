@@ -43,3 +43,9 @@ sensor:
       - type: processor_use
       - type: processor_temperature
       - type: last_boot
+
+mqtt:
+  sensor:
+    name: "Water Verbruik Vorige Dag"
+    state_topic: "zigbee2mqtt/ha/water_usage_daily"
+    unit_of_measurement: L
