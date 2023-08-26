@@ -617,8 +617,8 @@
   - service: mqtt.publish
     data:
       qos: 0
-      retain: false
-      topic: r3mcos3/ha/water_used_daily
+      retain: true
+      topic: zigbee2mqtt/ha/water_usage_daily
       payload: '{{states(''sensor.water_gebruik_dagelijks'')}}'
   mode: single
 - id: '1692957012426'
