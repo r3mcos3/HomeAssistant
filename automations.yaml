@@ -636,3 +636,16 @@
       - sensor.carbu_com_super95_2382_price
       - sensor.carbu_com_super95_5043lp_price
   mode: single
+- id: '1693117163057'
+  alias: Notificatie - Water Verbruik
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:00:00
+  condition: []
+  action:
+  - service: notify.mobile_app_sm_f711b
+    data:
+      message: Je heb gisteren {{ states('sensor.water_verbruik_vorige_dag')}} L water
+        verbruikt.
+  mode: single
