@@ -1,5 +1,6 @@
 mqtt:
   sensor:
+    unique_id: water_verbruik_vorige_dag
     name: "Water Verbruik Vorige Dag"
     state_topic: "zigbee2mqtt/ha/water_usage_daily"
     unit_of_measurement: L
