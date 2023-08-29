@@ -28,6 +28,18 @@
       - update.usw_flex_mini_zolder
       - update.watermeter_firmware
       - update.wled_santi_firmware
+      - update.bubble_card_update
+      - update.button_card_update
+      - update.clock_weather_card_update
+      - update.bluetooth_proxy_firmware
+      - update.home_assistant_google_drive_backup_update
+      - update.carbu_com_update
+      - update.mushroom_update
+      - update.music_assistant_beta_update
+      - update.music_assistant_update
+      - update.samba_share_update
+      - update.silicon_labs_multiprotocol_update
+      - update.studio_code_server_update
       mobile_app_device: b51feff7c01c57cde21743b90b13df53
       reminder_hours: '12'
       only_after: 08:30:00
