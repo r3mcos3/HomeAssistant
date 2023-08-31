@@ -1,6 +1,0 @@
-template:
-  - sensor:
-      - name: Branstof Verschil
-        unit_of_measurement: Cent
-        state: >
-          {{ (states('sensor.carbu_com_super95_5043lp_price') | float(2) - states('sensor.carbu_com_super95_2382_price') | float(2)) | round(2) }}
