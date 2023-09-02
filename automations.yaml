@@ -373,7 +373,7 @@
       - service: script.serre_10_stap
         data: {}
 - id: '1692521059954'
-  alias: Licht - Thuis / Weg
+  alias: Licht - Weg
   description: ''
   trigger:
   - platform: state
@@ -381,40 +381,15 @@
     - group.anne_remco
     to: not_home
     id: weg
-  - platform: state
-    entity_id:
-    - group.anne_remco
-    to: home
-    id: thuis
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.gast_status
+    state: 'off'
   action:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id:
-        - weg
-      - condition: state
-        entity_id: input_boolean.gast_status
-        state: 'off'
-      sequence:
-      - service: light.turn_off
-        data: {}
-        target:
-          entity_id: all
-    - conditions:
-      - condition: trigger
-        id:
-        - thuis
-      - condition: state
-        entity_id: sun.sun
-        state: below_horizon
-      sequence:
-      - service: light.turn_on
-        data: {}
-        target:
-          entity_id:
-          - light.woonkamer_spotjes
-          - light.keuken_spotjes
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.all
   mode: single
 - id: '1692523043489'
   alias: Volume Control 2.0
@@ -661,4 +636,24 @@
     data:
       message: Je heb gisteren {{ states('sensor.water_verbruik_vorige_dag')}} L water
         verbruikt.
+  mode: single
+- id: '1693672264090'
+  alias: Licht - Thuis
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.woonkamer_spotjes
+      - light.keuken_spotjes
   mode: single
