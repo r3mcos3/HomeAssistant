@@ -40,6 +40,7 @@
       - update.samba_share_update
       - update.silicon_labs_multiprotocol_update
       - update.studio_code_server_update
+      - update.qbittorrent_update
       mobile_app_device: b51feff7c01c57cde21743b90b13df53
       reminder_hours: '12'
       only_after: 08:30:00
