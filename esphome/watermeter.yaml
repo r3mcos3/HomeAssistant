@@ -8,7 +8,7 @@
 # - Off: All fine!
 #
 
-#Name of device
+# Name of device
 substitutions:
   device_name: water_meter
   friendly_name: Water meter
