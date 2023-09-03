@@ -46,6 +46,7 @@ rules:
     present: true
     ignore: |
       config/known_devices.yaml
+      config/esphome/
   empty-lines:
     level: error
     max: 1
