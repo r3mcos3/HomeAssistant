@@ -12,7 +12,7 @@ esp8266:
 logger:
 
 # Enable Home Assistant API
-api: 
+api:
 
 ota:
 
@@ -43,29 +43,29 @@ button:
     name: "${friendly_name} Restart"
 
 switch:
-- platform: gpio
-  pin: GPIO12
-  interlock: &interlock [open_cover, close_cover]
-  id: open_cover
-- platform: gpio
-  pin: GPIO5
-  interlock: *interlock
-  id: close_cover
-- platform: gpio
-  pin: GPIO13
-  name: "${friendly_name} LED"
-  inverted: true
+  - platform: gpio
+    pin: GPIO12
+    interlock: &interlock [open_cover, close_cover]
+    id: open_cover
+  - platform: gpio
+    pin: GPIO5
+    interlock: *interlock
+    id: close_cover
+  - platform: gpio
+    pin: GPIO13
+    name: "${friendly_name} LED"
+    inverted: true
 
 cover:
-- platform: time_based
-  name: "${friendly_name}"
-  id: my_cover
-  open_action:
-    - switch.turn_on: open_cover
-  open_duration: 25s
-  close_action:
-    - switch.turn_on: close_cover
-  close_duration: 21s
-  stop_action:
-    - switch.turn_off: open_cover
-    - switch.turn_off: close_cover
+  - platform: time_based
+    name: "${friendly_name}"
+    id: my_cover
+    open_action:
+      - switch.turn_on: open_cover
+    open_duration: 25s
+    close_action:
+      - switch.turn_on: close_cover
+    close_duration: 21s
+    stop_action:
+      - switch.turn_off: open_cover
+      - switch.turn_off: close_cover

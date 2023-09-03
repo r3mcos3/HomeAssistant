@@ -79,7 +79,6 @@ i2c:
   sda: GPIO4
   scl: GPIO5
 
-
 output:
   - platform: esp8266_pwm
     id: output_led_green
@@ -91,7 +90,7 @@ light:
     output: output_led_green
 
 sensor:
-  #Wifi signal
+  # Wifi signal
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
     update_interval: 300s
