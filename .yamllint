@@ -9,6 +9,7 @@ ignore: |
   scenes.yaml
   scripts.yaml
   themes/*.yaml
+  .github/workflows/home-assistant.yml
 rules:
   braces:
     level: error
