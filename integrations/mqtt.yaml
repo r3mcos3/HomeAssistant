@@ -1,3 +1,4 @@
+---
 mqtt:
   sensor:
     unique_id: water_verbruik_vorige_dag

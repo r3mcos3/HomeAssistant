@@ -1,3 +1,4 @@
+---
 command_line:
   - sensor:
       name: "Lines of Code"
