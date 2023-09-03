@@ -69,4 +69,3 @@ cover:
   stop_action:
     - switch.turn_off: open_cover
     - switch.turn_off: close_cover
-    
