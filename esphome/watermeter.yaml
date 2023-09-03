@@ -21,12 +21,12 @@ esphome:
   name: watermeter
   platform: ESP8266
   board: d1_mini
-  
+
   project:
     name: dwainscheeren.watermeterkit
     version: "${watermeterkit_version}"
 
-#WiFi Settings
+# WiFi Settings
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
@@ -34,8 +34,8 @@ wifi:
   ap:
     ssid: "Water meter Installation"
     password: !secret hotspot_password
-    
-#Enable fallback if WiFi is not found
+
+# Enable fallback if WiFi is not found
 captive_portal:
 
 # Enable logging
@@ -56,7 +56,7 @@ switch:
   - platform: restart
     id: switch_restart
     name: "${friendly_name} Restart"
-    
+
 # Time for uptime
 time:
   - platform: homeassistant
@@ -64,11 +64,11 @@ time:
     timezone: "${time_timezone}"
     on_time_sync:
       - component.update: sensor_uptime_timestamp
-      
+
   - platform: sntp
     id: time_sntp
     timezone: "${time_timezone}"
-    
+
 # I²C Bus
 #
 # This component sets up the I²C bus for the ESP8266.
@@ -78,8 +78,8 @@ time:
 i2c:
   sda: GPIO4
   scl: GPIO5
-  
-  
+
+
 output:
   - platform: esp8266_pwm
     id: output_led_green
@@ -89,7 +89,7 @@ light:
   - platform: monochromatic
     id: light_led_green
     output: output_led_green
-  
+
 sensor:
   #Wifi signal
   - platform: wifi_signal
@@ -165,7 +165,7 @@ sensor:
       id: sensor_humidity
       name: "${friendly_name} Humidity"
     update_interval: 600s
-    
+
 text_sensor:
   # IP address #
   - platform: wifi_info
@@ -191,4 +191,4 @@ text_sensor:
     update_interval: 5h
     lambda: |-
       return {"${watermeterkit_model}"};
-    
+
