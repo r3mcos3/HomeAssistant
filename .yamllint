@@ -1,9 +1,10 @@
 ---
 ignore: |
   automations.yaml
-  blueprints/*/homeassistant/*.yaml
+  blueprints/*/*/*.yaml
   custom_components/
   esphome/*/
+  esphome/*.yaml
   ip_bans.yaml
   notebooks/
   scenes.yaml
