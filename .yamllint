@@ -3,8 +3,7 @@ ignore: |
   automations.yaml
   blueprints/*/homeassistant/*.yaml
   custom_components/
-  esphomeyaml/*/
-  esphome/.esphome/
+  esphome/*/
   ip_bans.yaml
   notebooks/
   scenes.yaml
@@ -46,7 +45,7 @@ rules:
     present: true
     ignore: |
       config/known_devices.yaml
-      esphome/
+      esphome/*
   empty-lines:
     level: error
     max: 1
@@ -56,6 +55,10 @@ rules:
     level: error
     max-spaces-after: 1
   indentation:
+    ignore: |
+      automations.yaml
+      scripts.yaml
+      scenes.yaml
     level: error
     spaces: 2
     indent-sequences: true
