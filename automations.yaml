@@ -389,7 +389,7 @@
   - service: light.turn_off
     data: {}
     target:
-      entity_id: light.all
+      entity_id: all
   mode: single
 - id: '1692523043489'
   alias: Volume Control 2.0
