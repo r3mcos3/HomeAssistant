@@ -657,3 +657,49 @@
       - light.woonkamer_spotjes
       - light.keuken_spotjes
   mode: single
+- id: '1693883071332'
+  alias: Licht - Prullebak Licht
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 961df25c1f524762c30867e70a9c974b
+    entity_id: ddb096be64c5393cf651b8811325a29e
+    domain: binary_sensor
+    id: open
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.timer_serre_licht
+    id: uit
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - open
+      - condition: sun
+        before: sunrise
+        after: sunset
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: 10
+        target:
+          entity_id: light.serre
+      - service: timer.start
+        data: {}
+        target:
+          entity_id: timer.timer_serre_licht
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - service: light.turn_off
+        data:
+          transition: 3
+        target:
+          entity_id: light.serre
+  mode: restart
