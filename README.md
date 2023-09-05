@@ -12,3 +12,8 @@
   ![1200px-Home_Assistant_Logo svg](https://github.com/r3mcos3/HomeAssistant/assets/45529818/659e1318-4430-4735-be4a-2636b87d1263)
 
 </h1>
+
+# Screenshot
+<p align="center">
+<img src="https://github.com/r3mcos3/HomeAssistant/assets/45529818/4d5a85d3-d7e3-4ddb-8f59-4aaa91cbb038" width="300"/>
+</p>
