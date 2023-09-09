@@ -189,14 +189,14 @@
   trigger:
   - type: motion
     platform: device
-    device_id: a4b2a76d4807daba520a83312286ba5a
-    entity_id: dd3fb45f8b53fda8e0129afcba094264
+    device_id: e16669777e07405a75c96b12f4f41db9
+    entity_id: 618872ce5e18147e337d47035fa4f0f9
     domain: binary_sensor
     id: aan
   - type: no_motion
     platform: device
-    device_id: a4b2a76d4807daba520a83312286ba5a
-    entity_id: dd3fb45f8b53fda8e0129afcba094264
+    device_id: e16669777e07405a75c96b12f4f41db9
+    entity_id: 618872ce5e18147e337d47035fa4f0f9
     domain: binary_sensor
     id: uit
   condition: []
