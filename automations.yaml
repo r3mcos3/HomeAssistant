@@ -703,3 +703,39 @@
         target:
           entity_id: light.serre
   mode: restart
+- id: '1694451211938'
+  alias: Camera - Turn On/Off Motion G3
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: home
+    id: uit
+  - platform: state
+    entity_id:
+    - group.anne_remco
+    to: not_home
+    id: aan
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - uit
+      sequence:
+      - type: turn_off
+        device_id: 735a65d8056db747e21f18fede708232
+        entity_id: 2119bb00b4204e89bc401d12e1839d2e
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - aan
+      sequence:
+      - type: turn_on
+        device_id: 735a65d8056db747e21f18fede708232
+        entity_id: 2119bb00b4204e89bc401d12e1839d2e
+        domain: switch
+  mode: single
