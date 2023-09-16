@@ -1,0 +1,9 @@
+---
+notify:
+  - name: WhatsApp
+    platform: rest
+    resource: https://api.callmebot.com/whatsapp.php
+    data:
+      source: HA
+      phone: !secret phone_number
+      apikey: !secret apikey
