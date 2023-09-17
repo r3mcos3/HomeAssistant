@@ -524,7 +524,7 @@
         id:
         - op
       sequence:
-      - service: notify.mobile_app_sm_f711b
+      - service: notify.whatsapp
         data:
           message: De zon kwam op om {{ now().strftime('%H:%M') }} ☀
     - conditions:
@@ -532,7 +532,7 @@
         id:
         - onder
       sequence:
-      - service: notify.mobile_app_sm_f711b
+      - service: notify.whatsapp
         data:
           message: "De zon ging onder om {{ now().strftime('%H:%M') }} \U0001F319"
   mode: single
@@ -632,7 +632,7 @@
     at: 09:00:00
   condition: []
   action:
-  - service: notify.mobile_app_sm_f711b
+  - service: notify.whatsapp
     data:
       message: Je heb gisteren {{ states('sensor.water_verbruik_vorige_dag')}} L water
         verbruikt.
