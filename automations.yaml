@@ -635,7 +635,7 @@
   - service: notify.whatsapp
     data:
       message: "Je heb gisteren {{ states('sensor.water_verbruik_vorige_dag')}} L
-        water \U0001F4A7 verbruikt."
+        water  verbruikt. \U0001F4A7"
   mode: single
 - id: '1693672264090'
   alias: Licht - Thuis
